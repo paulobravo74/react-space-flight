@@ -1,23 +1,32 @@
-import logo from './logo.svg';
+import { useState, useEffect } from 'react';
 import './App.css';
 
 function App() {
+  const [data, setData] = useState([]);
+  const [_title, _setTitle] = useState("null");
+
+  
+  
+  
+  
+  useEffect(() => {
+    fetch("https://api.spaceflightnewsapi.net/v4/articles/")
+    .then((response) => response.json())
+    .then((data) => setData(data.results))
+    .catch((error) => console.error(error));
+  }, []);
+
+  
+  
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Spaceflight News</h1>
+      <h2>{_title}</h2>
+      <button onClick={() => _setTitle("Paulo")}>Click</button>
+        {data.map((e) => {
+          <h2 key={e.id}>Hello</h2>
+      })}
     </div>
   );
 }
