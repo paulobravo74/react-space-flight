@@ -2,17 +2,19 @@ import { useState, useEffect } from 'react';
 import './App.css';
 
 function App() {
-  const [data, setData] = useState([]);
-  const [_title, _setTitle] = useState("null");
-
+  const [_data, _setData] = useState([]);
   
-  
-  
+    
+  const baseUrl = "https://api.spaceflightnewsapi.net/v4/articles/"
+  const [id, setId] = useState(22761)
   
   useEffect(() => {
-    fetch("https://api.spaceflightnewsapi.net/v4/articles/")
+    fetch(baseUrl)
     .then((response) => response.json())
-    .then((data) => setData(data.results))
+    .then((data) => {
+      console.log(data);
+      _setData(data.results)
+    })
     .catch((error) => console.error(error));
   }, []);
 
@@ -20,13 +22,28 @@ function App() {
   
 
   return (
-    <div>
+    <div className='home'>
       <h1>Spaceflight News</h1>
-      <h2>{_title}</h2>
-      <button onClick={() => _setTitle("Paulo")}>Click</button>
-        {data.map((e) => {
-          <h2 key={e.id}>Hello</h2>
-      })}
+      
+      <div className='container_cards bg_red'>
+        {_data.map((item) => {
+          return (
+          <div className='card bg_green'>
+            <div>
+              <img src={item.image_url} className='img'></img>
+            </div>
+            <div> 
+              <p>{item.title}</p>
+              <p>News: {item.news_site}</p>
+            </div>
+          </div>
+          )
+        })}
+      </div>
+      <div>
+        <button>Previous</button>
+        <button>Next</button>
+      </div>
     </div>
   );
 }
