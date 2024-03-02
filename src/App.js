@@ -4,10 +4,11 @@ import Header from './Components/Header';
 
 function App() {
   const [_data, _setData] = useState([]);
+  const [previous, setPrevious] = useState(null);
+  const [next, setNext] = useState();
   
     
   const baseUrl = "https://api.spaceflightnewsapi.net/v4/articles/"
-  const [id, setId] = useState(22761)
   
   useEffect(() => {
     fetch(baseUrl)
@@ -15,6 +16,9 @@ function App() {
     .then((data) => {
       console.log(data);
       _setData(data.results)
+      setPrevious(data.previous)
+      console.log(data.next)
+      setNext(data.next)
     })
     .catch((error) => console.error(error));
   }, []);
@@ -27,7 +31,7 @@ function App() {
       <Header />
 
       <div className='container_cards'>
-        {_data.map((item) => {
+        {_data.map((item, key) => {
           return (
           <div className='card'>
             <div>
@@ -35,15 +39,21 @@ function App() {
             </div>
             <div> 
               <p>{item.title}</p>
-              <a href={item.url} target='_blank'>{item.news_site}</a>
+              <a href={item.url} target='_blank' rel='noreferrer' alt="">{item.news_site}</a>
             </div>
           </div>
           )
         })}
       </div>
       <div>
-        <button>Previous</button>
-        <button>Next</button>
+        <button type='button' onClick={(e) => {
+          e.preventDefault();
+          window.location.href={previous};
+          }}>Previous</button>
+        <button type="button" onClick={(e) => {
+          e.preventDefault();
+          window.location.href={next};
+          }}>Next</button>
       </div>
     </div>
   );
