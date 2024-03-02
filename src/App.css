@@ -12,6 +12,14 @@
 
 .home {
   text-align: center;
+  padding-bottom: 50px;
+}
+
+#header {
+  background-color: rgb(221, 221, 221);
+  margin-top: -25px;
+  height: 150px;
+  padding: 25px;
 }
 
 .container_cards {
@@ -23,10 +31,11 @@
 
 .card {
   width: 250px;
-  height: max-content;
+  height: 300px;
   margin: 25px;
   display: flex;
   flex-direction: column;
+  background-color: rgb(224, 224, 224);
 }
 
 .img {

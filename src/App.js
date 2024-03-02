@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import './App.css';
+import Header from './Components/Header';
 
 function App() {
   const [_data, _setData] = useState([]);
@@ -23,18 +24,18 @@ function App() {
 
   return (
     <div className='home'>
-      <h1>Spaceflight News</h1>
-      
-      <div className='container_cards bg_red'>
+      <Header />
+
+      <div className='container_cards'>
         {_data.map((item) => {
           return (
-          <div className='card bg_green'>
+          <div className='card'>
             <div>
               <img src={item.image_url} className='img'></img>
             </div>
             <div> 
               <p>{item.title}</p>
-              <p>News: {item.news_site}</p>
+              <a href={item.url} target='_blank'>{item.news_site}</a>
             </div>
           </div>
           )
