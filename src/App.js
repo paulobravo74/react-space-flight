@@ -6,12 +6,13 @@ function App() {
   const [_data, _setData] = useState([]);
   const [previous, setPrevious] = useState(null);
   const [next, setNext] = useState();
+  const [currentUrl, setCurrentUrl] = useState("https://api.spaceflightnewsapi.net/v4/articles/")
+  const [pageNum, setPageNum] = useState(1)
   
     
-  const baseUrl = "https://api.spaceflightnewsapi.net/v4/articles/"
   
   useEffect(() => {
-    fetch(baseUrl)
+    fetch(currentUrl)
     .then((response) => response.json())
     .then((data) => {
       console.log(data);
@@ -21,9 +22,18 @@ function App() {
       setNext(data.next)
     })
     .catch((error) => console.error(error));
-  }, []);
+  }, [currentUrl]);
 
   
+  const handlePreviousClick = () => {
+    setCurrentUrl(previous)
+    pageNum - 1 === 0? setPageNum(1) : setPageNum(pageNum - 1);
+  }
+
+  const handleNextClick = () => {
+    setCurrentUrl(next)
+    setPageNum(pageNum + 1)
+  }
   
 
   return (
@@ -40,21 +50,17 @@ function App() {
             <div> 
               <p>{item.title}</p>
               <a href={item.url} target='_blank' rel='noreferrer' alt="">{item.news_site}</a>
+              <p>Published: {(item.published_at).slice(0,10)}</p>
             </div>
           </div>
           )
         })}
       </div>
       <div>
-        <button type='button' onClick={(e) => {
-          e.preventDefault();
-          window.location.href={previous};
-          }}>Previous</button>
-        <button type="button" onClick={(e) => {
-          e.preventDefault();
-          window.location.href={next};
-          }}>Next</button>
+        <button type="button" onClick={handlePreviousClick}>Previous</button>
+        <button type="button" onClick={handleNextClick}>Next</button>
       </div>
+      <p>Page {pageNum}</p>
     </div>
   );
 }
