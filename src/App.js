@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
 import './App.css';
 import Header from './Components/Header';
+import Card from './Components/Card';
 
 function App() {
+  const [currentUrl, setCurrentUrl] = useState("https://api.spaceflightnewsapi.net/v4/articles/")
   const [_data, _setData] = useState([]);
   const [previous, setPrevious] = useState(null);
   const [next, setNext] = useState();
-  const [currentUrl, setCurrentUrl] = useState("https://api.spaceflightnewsapi.net/v4/articles/")
   const [pageNum, setPageNum] = useState(1)
   
     
@@ -15,10 +16,8 @@ function App() {
     fetch(currentUrl)
     .then((response) => response.json())
     .then((data) => {
-      console.log(data);
       _setData(data.results)
       setPrevious(data.previous)
-      console.log(data.next)
       setNext(data.next)
     })
     .catch((error) => console.error(error));
@@ -41,18 +40,31 @@ function App() {
       <Header />
 
       <div className='container_cards'>
-        {_data.map((item, key) => {
+        {_data.map((item) => {
           return (
+
+            <Card
+              key={item.id}
+              image={item.image_url}
+              title={item.title}
+              url={item.url}
+              summary={item.summary}
+              site={item.news_site}
+              date={item.published_at}
+            />
+
+            /*
           <div className='card'>
             <div>
               <img src={item.image_url} className='img'></img>
             </div>
             <div> 
               <p>{item.title}</p>
-              <a href={item.url} target='_blank' rel='noreferrer' alt="">{item.news_site}</a>
+              <a href={item.url} target='_blank' rel='noreferrer' alt="" title={item.summary}>{item.news_site}</a>
               <p>Published: {(item.published_at).slice(0,10)}</p>
             </div>
           </div>
+          */
           )
         })}
       </div>
