@@ -41,13 +41,12 @@ function App() {
     setInput(e.target.value)
   }
 
+
+
   const handleSearchSubmit = () => {
 
-    console.log("Search");
-    console.log(`${input}`);
-
     for (let pageBase = 0; pageBase <= 90; pageBase += 10) {
-      if(pageBase === 0) {
+      if(pageBase === 0 || input !== true) {
         setCurrentUrl(currentUrl)
       } else {
         setCurrentUrl(`https://api.spaceflightnewsapi.net/v4/articles/?limit=10&offset=${pageBase}`)
