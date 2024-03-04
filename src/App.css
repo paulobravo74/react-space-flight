@@ -16,10 +16,25 @@
 }
 
 #header {
-  background-color: rgb(221, 221, 221);
-  margin-top: -25px;
-  height: 150px;
-  padding: 25px;
+  height: 48vh;
+}
+
+.imgBanner {
+  position: relative;
+  width: 100%;
+  height: 45vh;
+  object-fit: cover;
+}
+
+.textBanner {
+  position: relative;
+  bottom: 200px;
+  background-color: rgba(226, 226, 226, 0.381);
+  color: white;
+}
+
+#container {
+  
 }
 
 .container_cards {
@@ -40,4 +55,14 @@
 
 .img {
   width: 250px;
+  height: 20vh;
+  object-fit: cover;
+}
+
+.card-title {
+  text-align: justify;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 13px;
+  font-weight: bold;
 }
