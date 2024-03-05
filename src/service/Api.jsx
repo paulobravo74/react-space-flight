@@ -2,28 +2,23 @@ import { useState, useEffect } from "react";
 
 
 
-export default function Api() {
-    
-    const url = "https://api.spaceflightnewsapi.net/v4/articles/"
+export default function Api(url) {
       
-    const [currentUrl, setCurrentUrl] = useState(url)
-    const [_data, _setData] = useState([]);
+    const [data, setData] = useState([]);
     
     const [previous, setPrevious] = useState(null);
     const [next, setNext] = useState();
-    const [pageNum, setPageNum] = useState(1)
 
     useEffect(() => {
-        fetch(currentUrl)
+        fetch(url)
         .then((response) => response.json())
         .then((data) => {
-          _setData(data.results)
+          setData(data.results)
           setPrevious(data.previous)
           setNext(data.next)
         })
         .catch((error) => console.error(error));
-      }, [currentUrl]);
-
-
+      }, [url]);
     
+      return { data, previous, next}
 }
