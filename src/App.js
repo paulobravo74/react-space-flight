@@ -2,19 +2,24 @@ import { useState, useEffect } from 'react';
 import './App.css';
 import Header from './Components/Header';
 import Card from './Components/Card';
+import Main from './Components/Main';
 
 function App() {
 
+  const url = "https://api.spaceflightnewsapi.net/v4/articles/"
   
-  const [currentUrl, setCurrentUrl] = useState("https://api.spaceflightnewsapi.net/v4/articles/")
+  const [currentUrl, setCurrentUrl] = useState(url)
   const [_data, _setData] = useState([]);
+  
+  const [input, setInput] = useState(null)
+  const [searchInfo, setSearchInfo] = useState("")
+    
   const [previous, setPrevious] = useState(null);
   const [next, setNext] = useState();
   const [pageNum, setPageNum] = useState(1)
-  const [input, setInput] = useState("")
   
     
-  
+  // ---------- Fetch ----------
   useEffect(() => {
     fetch(currentUrl)
     .then((response) => response.json())
@@ -27,6 +32,7 @@ function App() {
   }, [currentUrl]);
 
   
+  // ---------- Buttons ----------
   const handlePreviousClick = () => {
     setCurrentUrl(previous)
     pageNum - 1 === 0? setPageNum(1) : setPageNum(pageNum - 1);
@@ -37,25 +43,30 @@ function App() {
     setPageNum(pageNum + 1)
   }
 
+
+
+
+// ---------- Search ----------
   const getInput = (e) => {
     setInput(e.target.value)
   }
 
 
-
   const handleSearchSubmit = () => {
-
-    for (let pageBase = 0; pageBase <= 90; pageBase += 10) {
-      if(pageBase === 0 || input !== true) {
-        setCurrentUrl(currentUrl)
+      if(input !== null) {
+        console.log("Input " + input)
+        setCurrentUrl(url + `?search=${input}`)
+        if(_data.length === 0) {
+            console.log(_data.length)
+            setSearchInfo("Search: " + input + " not found")
+          } else {
+            console.log(_data)
+            setSearchInfo("Search: " + input)
+          }
       } else {
-        setCurrentUrl(`https://api.spaceflightnewsapi.net/v4/articles/?limit=10&offset=${pageBase}`)
+        setCurrentUrl(currentUrl)
       }
-      console.log("PageBase: " + pageBase);
-      _data.find((e) => {e.news_site === input ? console.log(e) : console.log("Not Found")})
-    }
-    
-    
+        
   }
   
   
@@ -63,11 +74,13 @@ function App() {
   return (
     <div className='home'>
       <Header />
+      <Main />
 
-      <div id='container'>
+      <div id='container bg_red'>
         <div className='search'>
           <input type="text" defaultValue={input} onChange={getInput}></input>
           <button onClick={handleSearchSubmit}>Submit</button>
+          {<p>{searchInfo}</p>}
         </div>
 
         <div className='container_cards'>
@@ -85,18 +98,6 @@ function App() {
                 date={item.published_at}
               />
 
-              /*
-            <div className='card'>
-              <div>
-                <img src={item.image_url} className='img'></img>
-              </div>
-              <div> 
-                <p>{item.title}</p>
-                <a href={item.url} target='_blank' rel='noreferrer' alt="" title={item.summary}>{item.news_site}</a>
-                <p>Published: {(item.published_at).slice(0,10)}</p>
-              </div>
-            </div>
-            */
             )
           })}
         </div>
