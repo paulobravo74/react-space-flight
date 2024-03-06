@@ -6,7 +6,8 @@ import Card from "./Card"
 const url = "https://api.spaceflightnewsapi.net/v4/articles/"
 
 export default function Main() {
-    const [currentUrl, setCurrentUrl] = useState(url)
+    const [cardsNumber, setCardsNumber] = useState(4)
+    const [currentUrl, setCurrentUrl] = useState(url + `?limit=${cardsNumber}`)
     
     const { data, previous, next} = Api(currentUrl)
 
@@ -22,7 +23,7 @@ export default function Main() {
     // ---------- Buttons ----------
     const handlePreviousClick = () => {
         setCurrentUrl(previous)
-        pageNum - 1 === 0? setPageNum(1) : setPageNum(pageNum - 1);
+        pageNum - 1 === 0 ? setPageNum(1) : setPageNum(pageNum - 1);
     }
 
     const handleNextClick = () => {
@@ -56,7 +57,9 @@ export default function Main() {
     const handleSearchSubmit = () => {
         if(input !== null) {
             console.log("Input " + input)
-            setCurrentUrl(url + `?search=${input}`)
+            setCurrentUrl(url +  `?limit=${cardsNumber}&search=${input}`)
+            setPageNum(1)
+            console.log(currentUrl)
             if(data.length === 0) {
                 //console.log(data.length)
                 setSearchInfo("Search: " + input + " not found")
@@ -69,6 +72,26 @@ export default function Main() {
         }
             
     }
+
+
+    // ---------- news/page ----------
+
+    const getNewsPage = (e) => {
+        setCardsNumber(e.target.value)
+        console.log(cardsNumber)
+    }
+
+    const handleNewsPage = () => {
+        setCurrentUrl(url + `?limit=${cardsNumber}`)
+        setPageNum(1)
+    }
+
+    // ---------- home ----------
+    const home = () => {
+        setCurrentUrl(url + `?limit=${cardsNumber}`)
+        setPageNum(1)
+    }
+
     
 
     return (
@@ -80,9 +103,12 @@ export default function Main() {
             </div>
 
             <div className='search'>
-                <input type="text" defaultValue={input} onChange={getInput}></input>
+                <input type="text" defaultValue={input} onChange={getInput} placeholder="Search..."></input>
                 <button onClick={handleSearchSubmit}>Submit</button>
                 {<p>{searchInfo}</p>}
+
+                <input type="text" onChange={getNewsPage} placeholder="news/page" />
+                <button onClick={handleNewsPage}>Submit</button>
             </div>
 
             <div className='container_cards'>
@@ -109,6 +135,8 @@ export default function Main() {
                 <button type="button" onClick={handleNextClick}>Next</button>
             </div>
                 
+            <button type="button" onClick={home}>Home</button>
+            
             <p>Page {pageNum}</p>
                 
         </div>
