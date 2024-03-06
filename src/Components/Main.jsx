@@ -10,6 +10,9 @@ export default function Main() {
     
     const { data, previous, next} = Api(currentUrl)
 
+    const [mode, setMode] = useState('lightMode')
+    const [cardMode, setCardMode] = useState('lightCardMode')
+
     const [input, setInput] = useState(null)
     const [searchInfo, setSearchInfo] = useState("")
 
@@ -27,6 +30,22 @@ export default function Main() {
         setPageNum(pageNum + 1)
     }
 
+    
+    // ---------- Dark/Light Mode ----------
+    const handleLightMode = () => {
+        setMode('lightMode')
+        setCardMode('lightCardMode')
+        console.log("Light Mode: " + mode + cardMode)
+        return {mode, cardMode}
+    }
+    
+    const handleDarkMode = () => {
+        setMode('darkMode')
+        setCardMode('darkCardMode')
+        console.log("Dark Mode: " + mode + cardMode)
+        return {mode, cardMode}
+    }
+
 
     // ---------- Search ----------
     const getInput = (e) => {
@@ -39,7 +58,7 @@ export default function Main() {
             console.log("Input " + input)
             setCurrentUrl(url + `?search=${input}`)
             if(data.length === 0) {
-                console.log(data.length)
+                //console.log(data.length)
                 setSearchInfo("Search: " + input + " not found")
             } else {
                 console.log(data)
@@ -54,8 +73,11 @@ export default function Main() {
 
     return (
 
-
-        <div id='container bg_red'>
+        <div id='container' className={mode}>
+            <div className="buttonMode">
+                <button type="button" onClick={handleLightMode}>Light</button>
+                <button type="button" onClick={handleDarkMode}>Dark</button>
+            </div>
 
             <div className='search'>
                 <input type="text" defaultValue={input} onChange={getInput}></input>
@@ -75,6 +97,7 @@ export default function Main() {
                             summary={item.summary}
                             site={item.news_site}
                             date={item.published_at}
+                            mode={cardMode}
                         />
                     )
 
@@ -90,4 +113,5 @@ export default function Main() {
                 
         </div>
     )
+    
 }
