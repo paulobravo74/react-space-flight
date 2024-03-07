@@ -126,6 +126,8 @@ export default function Main() {
                 <button type="button" className="button_nav" onClick={handleBlogs}>Blogs</button>
             </nav>
 
+            <p>{list}</p>
+
             <div className="buttonMode">
                 <button type="button" onClick={handleLightMode}>Light</button>
                 <button type="button" onClick={handleDarkMode}>Dark</button>
@@ -134,7 +136,7 @@ export default function Main() {
             <div className='search'>
                 <input type="text" defaultValue={input} onChange={getInput} placeholder="Search..."></input>
                 <button onClick={handleSearchSubmit}>Submit</button>
-                {<p>{searchInfo}</p>}
+                <p>{searchInfo}</p>
 
                 <input type="text" onChange={getNewsPage} placeholder="news/page" />
                 <button onClick={handleNewsPage}>Submit</button>
