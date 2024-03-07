@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 
 
-
 export default function Api(url) {
       
     const [data, setData] = useState([]);

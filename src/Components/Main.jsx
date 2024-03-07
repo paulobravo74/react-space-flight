@@ -3,11 +3,18 @@ import { useState } from "react"
 import Api from "../service/Api"
 import Card from "./Card"
 
-const url = "https://api.spaceflightnewsapi.net/v4/articles/"
+const url = "https://api.spaceflightnewsapi.net/v4/"
+
+
 
 export default function Main() {
-    const [cardsNumber, setCardsNumber] = useState(4)
-    const [currentUrl, setCurrentUrl] = useState(url + `?limit=${cardsNumber}`)
+
+    const [list, setList] = useState("articles/")
+
+    const [cardsNumber, setCardsNumber] = useState(6)
+    
+    const [currentUrl, setCurrentUrl] = useState(url + `${list}?limit=${cardsNumber}`)
+    console.log(currentUrl)
     
     const { data, previous, next} = Api(currentUrl)
 
@@ -21,6 +28,21 @@ export default function Main() {
     
 
     // ---------- Buttons ----------
+    const handleArticles = () => {
+        setList("articles/")
+        setCurrentUrl(url + `${list}?limit=${cardsNumber}`)
+    }
+
+    const handleReports = () => {
+        setList("reports/")
+        setCurrentUrl(url + `${list}?limit=${cardsNumber}`)
+    }
+
+    const handleBlogs = () => {
+        setList("blogs/")
+        setCurrentUrl(url + `${list}?limit=${cardsNumber}`)
+    }
+
     const handlePreviousClick = () => {
         setCurrentUrl(previous)
         pageNum - 1 === 0 ? setPageNum(1) : setPageNum(pageNum - 1);
@@ -57,7 +79,7 @@ export default function Main() {
     const handleSearchSubmit = () => {
         if(input !== null) {
             console.log("Input " + input)
-            setCurrentUrl(url +  `?limit=${cardsNumber}&search=${input}`)
+            setCurrentUrl(url +  `${list}?limit=${cardsNumber}&search=${input}`)
             setPageNum(1)
             console.log(currentUrl)
             if(data.length === 0) {
@@ -78,17 +100,17 @@ export default function Main() {
 
     const getNewsPage = (e) => {
         setCardsNumber(e.target.value)
-        console.log(cardsNumber)
+        //console.log(cardsNumber)
     }
 
     const handleNewsPage = () => {
-        setCurrentUrl(url + `?limit=${cardsNumber}`)
+        setCurrentUrl(url + `${list}?limit=${cardsNumber}`)
         setPageNum(1)
     }
 
     // ---------- home ----------
     const home = () => {
-        setCurrentUrl(url + `?limit=${cardsNumber}`)
+        setCurrentUrl(`${url}${list}?limit=${cardsNumber}`)
         setPageNum(1)
     }
 
@@ -97,6 +119,13 @@ export default function Main() {
     return (
 
         <div id='container' className={mode}>
+
+            <nav className="navbar">
+                <button type="button" className="button_nav" onClick={handleArticles}>Articles</button>
+                <button type="button" className="button_nav" onClick={handleReports}>Reports</button>
+                <button type="button" className="button_nav" onClick={handleBlogs}>Blogs</button>
+            </nav>
+
             <div className="buttonMode">
                 <button type="button" onClick={handleLightMode}>Light</button>
                 <button type="button" onClick={handleDarkMode}>Dark</button>

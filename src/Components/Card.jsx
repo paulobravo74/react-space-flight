@@ -6,7 +6,7 @@ export default function Card({ image, title, url, summary, site, date, mode}) {
 
         <div id='card' className={mode}>
             <div>
-              <img src={image} className='img'></img>
+              <img src={image} className='img' alt=""></img>
             </div>
             
             <div> 

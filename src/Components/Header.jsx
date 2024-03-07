@@ -6,7 +6,7 @@ const imgUrl = "https://th.bing.com/th/id/R.0a62171ba095feb7a646cca9b118f044?rik
 export default function Header() {
     return (
     <div id="header">
-        <img src={imgUrl} className="imgBanner"></img>
+        <img src={imgUrl} className="imgBanner" alt=''></img>
         <h1 className='textBanner'>Spaceflight News</h1>
     </div>
     )
