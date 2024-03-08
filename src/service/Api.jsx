@@ -1,23 +1,18 @@
-import { useState, useEffect } from "react";
+
+  export const Api = async (url) => {
+
+    try {
+      const response = await fetch(url);
+      const jsonData = await response.json();
+      console.log(jsonData)
+      return jsonData;
+    } catch (error) {
+      console.log(error);
+      return null
+    }
+
+  }
 
 
-export default function Api(url) {
-      
-    const [data, setData] = useState([]);
-    
-    const [previous, setPrevious] = useState(null);
-    const [next, setNext] = useState();
 
-    useEffect(() => {
-        fetch(url)
-        .then((response) => response.json())
-        .then((data) => {
-          setData(data.results)
-          setPrevious(data.previous)
-          setNext(data.next)
-        })
-        .catch((error) => console.error(error));
-      }, [url]);
-    
-      return { data, previous, next}
-}
+

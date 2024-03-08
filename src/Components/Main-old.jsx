@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 
-import { Api } from "../service/Api"
+import Api from "../service/Api"
 import Card from "./Card"
 
 const url = "https://api.spaceflightnewsapi.net/v4/"
@@ -9,30 +9,14 @@ const url = "https://api.spaceflightnewsapi.net/v4/"
 
 export default function Main() {
 
-    const [data, setData] = useState([]);
-    
-    const [previous, setPrevious] = useState(null);
-    const [next, setNext] = useState();
-
     const [list, setList] = useState("articles/")
 
     const [cardsNumber, setCardsNumber] = useState(6)
     
     const [currentUrl, setCurrentUrl] = useState(url + `${list}?limit=${cardsNumber}`)
-    //console.log(currentUrl)
-
-    useEffect(() => {
-        const fetchData = async () => {
-            const response = await Api(currentUrl);
-            setData(response.results);
-            setPrevious(response.previous)
-            setNext(response.next)
-        };
-
-        fetchData();
-    }, [currentUrl]);
-
+    console.log(currentUrl)
     
+    const { data, previous, next} = Api(currentUrl)
 
     const [mode, setMode] = useState('lightMode')
     const [cardMode, setCardMode] = useState('lightCardMode')
