@@ -45,20 +45,23 @@ export default function Main() {
 
     // ---------- Buttons ----------
     const handleArticles = () => {
-        setList("articles/")
-        const newUrl = url + `${list}?limit=${cardsNumber}`
+        const newList = "articles";
+        setList(newList)
+        const newUrl = `${url}${newList}/?limit=${cardsNumber}`
         setCurrentUrl(newUrl)
     }
 
     const handleReports = () => {
-        setList("reports/")
-        const newUrl = url + `${list}?limit=${cardsNumber}`
+        const newList = "reports";
+        setList(newList)
+        const newUrl = `${url}${newList}/?limit=${cardsNumber}`
         setCurrentUrl(newUrl)
     }
 
     const handleBlogs = () => {
-        setList("blogs/")
-        const newUrl = url + `${list}?limit=${cardsNumber}`
+        const newList = "blogs";
+        setList(newList)
+        const newUrl = `${url}${newList}/?limit=${cardsNumber}`
         setCurrentUrl(newUrl)
     }
 
@@ -77,15 +80,11 @@ export default function Main() {
     const handleLightMode = () => {
         setMode('lightMode')
         setCardMode('lightCardMode')
-        console.log("Light Mode: " + mode + cardMode)
-        return {mode, cardMode}
     }
     
     const handleDarkMode = () => {
         setMode('darkMode')
         setCardMode('darkCardMode')
-        console.log("Dark Mode: " + mode + cardMode)
-        return {mode, cardMode}
     }
 
 
@@ -98,15 +97,15 @@ export default function Main() {
     const handleSearchSubmit = () => {
         if(input !== null) {
             console.log("Input " + input)
-            setCurrentUrl(url +  `${list}?limit=${cardsNumber}&search=${input}`)
+            setCurrentUrl(`${url}${list}?limit=${cardsNumber}&search=${input}`)
             setPageNum(1)
             console.log(currentUrl)
             if(data.length === 0) {
                 //console.log(data.length)
-                setSearchInfo("Search: " + input + " not found")
+                setSearchInfo(`Search: ${input} not found`)
             } else {
                 console.log(data)
-                setSearchInfo("Search: " + input)
+                setSearchInfo(`Search: ${input}`)
             }
         } else {
             setCurrentUrl(currentUrl)
