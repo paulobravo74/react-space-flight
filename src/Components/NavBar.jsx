@@ -24,7 +24,7 @@ export default function NavBar() {
     }
 
     return (
-        <nav className="navbar">
+        <nav className="navbar_new">
             <button type="button" className="button_nav" onClick={handleArticles}>Articles</button>
             <button type="button" className="button_nav" onClick={handleReports}>Reports</button>
             <button type="button" className="button_nav" onClick={handleBlogs}>Blogs</button>

@@ -14,7 +14,7 @@ export default function Main() {
     const [previous, setPrevious] = useState(null);
     const [next, setNext] = useState();
 
-    const [list, setList] = useState("articles/")
+    const [list, setList] = useState("articles")
 
     const [cardsNumber, setCardsNumber] = useState(6)
     
@@ -22,6 +22,7 @@ export default function Main() {
     //console.log(currentUrl)
 
     useEffect(() => {
+
         const fetchData = async () => {
             const response = await Api(currentUrl);
             setData(response.results);

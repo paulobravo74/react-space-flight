@@ -1,5 +1,8 @@
+import Wait from "../Components/Wait";
 
   export const Api = async (url) => {
+
+    <Wait />
 
     try {
       const response = await fetch(url);
