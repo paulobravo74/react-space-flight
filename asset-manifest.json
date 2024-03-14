@@ -1,15 +1,13 @@
 {
   "files": {
-    "main.css": "/paulobravo74/react-space-flight/static/css/main.ed779252.css",
-    "main.js": "/paulobravo74/react-space-flight/static/js/main.22a87555.js",
-    "static/js/453.18a98afd.chunk.js": "/paulobravo74/react-space-flight/static/js/453.18a98afd.chunk.js",
+    "main.css": "/paulobravo74/react-space-flight/static/css/main.5972a746.css",
+    "main.js": "/paulobravo74/react-space-flight/static/js/main.3fe03614.js",
     "index.html": "/paulobravo74/react-space-flight/index.html",
-    "main.ed779252.css.map": "/paulobravo74/react-space-flight/static/css/main.ed779252.css.map",
-    "main.22a87555.js.map": "/paulobravo74/react-space-flight/static/js/main.22a87555.js.map",
-    "453.18a98afd.chunk.js.map": "/paulobravo74/react-space-flight/static/js/453.18a98afd.chunk.js.map"
+    "main.5972a746.css.map": "/paulobravo74/react-space-flight/static/css/main.5972a746.css.map",
+    "main.3fe03614.js.map": "/paulobravo74/react-space-flight/static/js/main.3fe03614.js.map"
   },
   "entrypoints": [
-    "static/css/main.ed779252.css",
-    "static/js/main.22a87555.js"
+    "static/css/main.5972a746.css",
+    "static/js/main.3fe03614.js"
   ]
 }
